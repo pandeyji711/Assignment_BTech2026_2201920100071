@@ -1,54 +1,41 @@
 
+## Problem Statements & Approaches
 
-## Problem Statement
-Given an array of integers, solve the following problems:
-1. Minimize the cost of converting one array to another.
-2. Find the minimum sum of a triplet that follows an increasing then decreasing pattern.
-3. Find the minimum sum of a triplet in an array using prefix and suffix arrays.
+### 1. Pattern Matching with Wildcards (`hasMatch`)
 
----
+#### Problem Statement
+Given two strings `s` and `p`, where `p` may contain a `'*'` wildcard, determine whether `s` matches the pattern described by `p`. The `'*'` wildcard allows for any number of characters between fixed substrings.
 
-## Approach
-### 1. **Minimizing the Cost of Converting One Array to Another**
-#### Approach:
-- Compute the direct difference between corresponding elements of `arr` and `brr`.
-- Sort both arrays and compute the sum of absolute differences.
-- Consider whether the indexes are swapped to decide the final answer.
-- Use `min(ans1, ans + k)` or `min(ans, ans1)` based on whether indexes differ.
-
-#### Complexity:
-- Sorting takes `O(n log n)`, and difference calculation takes `O(n)`, leading to an overall complexity of `O(n log n)`.
+#### Approach
+- Extract the prefix (before `'*'`) and suffix (after `'*'`) from `p`.
+- Search for the prefix in `s` and, if found, check if the suffix appears later in the string.
+- If both conditions are met, return `true`; otherwise, return `false`.
+- Uses substring search and reverse operations for efficient pattern matching.
 
 ---
 
-### 2. **Finding the Minimum Sum of an Increasing-Decreasing Triplet Using Recursion + DP**
-#### Approach:
-- Use recursion with dynamic programming (`dp`) to store results.
-- Explore two options: taking or skipping an element.
-- Ensure elements follow the pattern of `nums[i] < nums[j] > nums[k]`.
-- If no valid triplet exists, return `-1`.
+### 2. Maximum Adjacent Distance (`maxAdjacentDistance`)
 
-#### Complexity:
-- The recursion depth is `O(n)`, and since we store results, the time complexity is `O(n^2)`, optimizing brute-force `O(n^3)`.
+#### Problem Statement
+Given a circular array of integers, find the maximum absolute difference between two adjacent elements.
 
----
-
-### 3. **Finding the Minimum Sum of a Triplet Using Prefix & Suffix Arrays**
-#### Approach:
-- Construct `v1` where `v1[i]` stores the minimum value from `nums[0]` to `nums[i]`.
-- Construct `v2` where `v2[i]` stores the minimum value from `nums[i]` to `nums[n-1]`.
-- Iterate through `nums` to find a valid triplet where `nums[i] > v1[i-1] && nums[i] > v2[i+1]`.
-- Track the minimum sum among such triplets.
-
-#### Complexity:
-- Constructing `v1` and `v2` takes `O(n)`, and checking valid triplets takes `O(n)`, leading to `O(n)` overall complexity.
+#### Approach
+- Iterate through the circular array and compute the absolute difference between each adjacent pair.
+- Use modulo indexing to wrap around at the end of the array.
+- Track the maximum absolute difference encountered.
+- This ensures an O(N) time complexity for efficient computation.
 
 ---
 
-## Conclusion
-- The first solution focuses on transformation costs using sorting and indexing.
-- The second approach leverages recursion and DP for triplet selection.
-- The third approach optimizes triplet selection using prefix and suffix arrays.
+### 3. Minimum Cost Transformation (`minCost`)
 
-Each approach optimizes a different aspect of the problem, achieving efficient solutions.
+#### Problem Statement
+Given two integer arrays `arr` and `brr`, find the minimum cost required to transform `arr` into `brr`, where each transformation operation has a cost defined by `k`.
 
+#### Approach
+- Compute the absolute differences between corresponding elements of `arr` and `brr`.
+- Sort both arrays and check if a direct transformation is possible while minimizing cost.
+- Consider both direct swaps and additional cost `k` to determine the optimal transformation.
+- Use sorting and greedy techniques to optimize the solution.
+
+---
